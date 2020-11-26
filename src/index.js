@@ -1,21 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import store from './app/store';
+import App from './components/app';
 import { Provider } from 'react-redux';
-import * as serviceWorker from './serviceWorker';
+import {BrowserRouter as Router} from 'react-router-dom';
+import ErrorBoundry from './components/error-boundry';
+import NewsService from './services/news-service';
+import NewsServiceContext from './components/news-service-context';
+import store from './store';
+
+const newsService = new NewsService();
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
+  <Provider store = {store}>
+        <ErrorBoundry>
+            <NewsServiceContext.Provider value = {newsService}>
+                <Router>
+                    <App/>
+                </Router>
+            </NewsServiceContext.Provider>
+        </ErrorBoundry>
     </Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
+  , document.getElementById('root')
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();

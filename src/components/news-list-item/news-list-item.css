@@ -1,0 +1,26 @@
+.news__item span, div {
+    font-size: 12px;
+}
+
+.news__title {
+    font-size: 18px;
+}
+
+.news__info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.wrapper {
+    display: flex;
+}
+
+.news__score {
+    margin-left: 10px;
+}
+
+a:visited,
+a:active, 
+a:hover {
+    text-decoration: none;
+}
