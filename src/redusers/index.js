@@ -20,6 +20,7 @@ const reduser = (state = initialState, action) => {
         case 'NEWS_ERROR':
             return {
                 ...state,
+                loading: false,
                 error: true
             };
         default:

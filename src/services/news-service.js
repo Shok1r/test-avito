@@ -18,7 +18,7 @@ export default class NewsService {
                 Promise.all(results)
                     .then( response => {return response}))
             .catch( error => {
-                console.log(error);
+                throw new Error('Server Error');
             });
     
         
