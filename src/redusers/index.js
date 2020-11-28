@@ -28,10 +28,7 @@ const reduser = (state = initialState, action) => {
         case 'COMMENTS_LOADED':
             return {
                 ...state,
-                comments:[
-                    ...state.comments,
-                    ...action.payload
-                ],
+                comments: action.payload,
                 commentsLoading: false
             };
         case 'COMMENTS_REQUESTED':

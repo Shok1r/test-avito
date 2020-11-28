@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { newsLoaded, newsRequested, newsError, commentsDelete } from '../../actions';
 import WithNewsService from '../hoc';
 import Spinner from '../spinner/spinner'
-import CommentsList from '../comment-list';
+import Comments from '../comments';
 import convertTime from '../time-converter';
 
 import './pages.css';
@@ -30,6 +30,8 @@ class ItemPage extends Component {
 
     render() {
 
+        this.props.commentsDelete();
+
         const {newsItems, loading} = this.props;
 
         if (loading) {
@@ -51,7 +53,7 @@ const View = ({item}) => {
     let comments = <div className="item__comment-list">No comments yet</div>;
 
     if (descendants > 0) {
-        comments = <CommentsList itemsId={item.kids}/>;
+        comments = <Comments pageId={item.id}/>;
     }
 
     return (

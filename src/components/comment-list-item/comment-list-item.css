@@ -1,0 +1,30 @@
+.comment__author {
+    color: rgba(0,0,0,.7);
+}
+
+.comment__text {
+    margin-top: 10px;
+}
+
+.comment__text p {
+    margin: 0;
+}
+
+.comment__date {
+    margin-top: 10px;
+    color: rgba(0,0,0,.7);
+}
+
+.comment__title {
+    display: flex;
+}
+
+.comment__show-children {
+    color: rgba(0,0,0,.7);
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.comment__show-children:hover {
+    text-decoration: underline;
+}

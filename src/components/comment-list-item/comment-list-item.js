@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-// import CommentsList from '../comment-list';
-// import convertTime from '../time-converter';
+import CommentsList from '../comment-list';
+import convertTime from '../time-converter';
+
+import './comment-list-item.css';
 
 class Comment extends Component {
 
@@ -9,40 +11,86 @@ class Comment extends Component {
         showChilds: false,
     }
 
+    onToggleShowChilds = () => {
+        const {showChilds} = this.state;
+        this.setState({showChilds: !showChilds});
+    }
+
     render() {
 
         const {commentsItems, commentId} = this.props;
         const item = commentsItems.find(el => el.id === commentId)
 
-        if (commentsItems.length === 0) {
-            return <></>;
+        if (item.hasOwnProperty('kids')) {
+            if (this.state.showChilds) {
+
+                const child = <CommentsList commentsId={item.kids}/>
+                return (
+                    <CommentWithKids item={item} child={child} onShowChildren={() => this.onToggleShowChilds()}/> 
+                )
+            } else {
+                return (
+                    <CommentWithKidsHide item={item} onShowChildren={() => this.onToggleShowChilds()}/>
+                )
+            }
+        } else {
+            return (
+                <CommentWithoutKids item={item}/>
+            )
         }
-
-        return (
-            <CommentWithoutKids item={item}/>
-        )
-
-        // if (item.hasOwnProperty('kids')) {
-        //     return (
-        //         <CommentWithoutKids item={item}/>
-        //     )
-        // } else {
-        //     return (
-        //         <CommentWithoutKids item={item}/>
-        //     )
-        // }
     }
 }
 
 const CommentWithoutKids = ({item}) => {
 
-    const {by, text, time} = item;
+    const {author, text, time} = item;
 
     return (
-        <li className="list-group-item">
-            <div>{by}</div>
-            <div dangerouslySetInnerHTML={{ __html: text }}/>
-            <div>{time}</div>
+        <li className="list-group-item comment">
+            <div className="comment__author">author: {author}</div>
+            <div className="comment__text" dangerouslySetInnerHTML={{ __html: text }}/>
+            <div className="comment__date">{convertTime(time)}</div>
+        </li>
+    )
+}
+
+const CommentWithKidsHide = ({item, onShowChildren}) => {
+    const {author, text, time, kids} = item;
+
+    const quantity = `[${kids.length} more]`;
+
+    return (
+        <li className="list-group-item comment">
+            <div className="comment__title">
+                <div className="comment__author">author: {author}</div>
+                <div 
+                    className="comment__show-children"
+                    onClick={onShowChildren}>
+                    {quantity}
+                </div>
+            </div>
+            <div className="comment__text" dangerouslySetInnerHTML={{ __html: text }}/>
+            <div className="comment__date">{convertTime(time)}</div>
+        </li>
+    )
+}
+
+const CommentWithKids = ({item, child, onShowChildren}) => {
+    const {author, text, time} = item;
+
+    return (
+        <li className="list-group-item comment">
+            <div className="comment__title">
+                <div className="comment__author">author: {author}</div>
+                <div 
+                    className="comment__show-children"
+                    onClick={onShowChildren}>
+                    [-]
+                </div>
+            </div>
+            <div className="comment__text" dangerouslySetInnerHTML={{ __html: text }}/>
+            <div className="comment__date">{convertTime(time)}</div>
+            {child}
         </li>
     )
 }
