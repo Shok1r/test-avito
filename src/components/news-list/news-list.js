@@ -32,7 +32,7 @@ class NewsList extends Component {
     render() {
         const {newsItems, loading} = this.props;
 
-        if (loading) {
+        if (loading || newsItems === []) {
             return <Spinner/>
         }
 

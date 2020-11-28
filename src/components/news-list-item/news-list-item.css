@@ -2,11 +2,11 @@
     font-size: 12px;
 }
 
-.news__title {
+.item__title {
     font-size: 18px;
 }
 
-.news__info {
+.item__info {
     display: flex;
     justify-content: space-between;
 }
@@ -15,7 +15,7 @@
     display: flex;
 }
 
-.news__score {
+.item__score {
     margin-left: 10px;
 }
 

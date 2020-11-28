@@ -1,7 +1,9 @@
 const initialState = {
     news: [],
+    comments: [],
     loading: true,
     error: false,
+    commentsLoading: true,
 }
 
 const reduser = (state = initialState, action) => {
@@ -22,6 +24,25 @@ const reduser = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: true
+            };
+        case 'COMMENTS_LOADED':
+            return {
+                ...state,
+                comments:[
+                    ...state.comments,
+                    ...action.payload
+                ],
+                commentsLoading: false
+            };
+        case 'COMMENTS_REQUESTED':
+            return {
+                ...state,
+                commentsLoading: true,
+            };    
+        case 'COMMENTS_DELETE':
+            return {
+                ...state,
+                comments: []
             };
         default:
             return state;

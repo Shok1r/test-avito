@@ -1,0 +1,28 @@
+.item_page {
+    margin-top: 15px;
+    padding: .75rem 1.25rem;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+.item__title-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.item__title-wrapper a {
+    margin-left: 20px;
+}
+
+.item__comments-counter {
+    margin-left: 10px;
+}
+
+.item__comment-list {
+    margin-top: 15px;
+    padding: .75rem 1.25rem;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    text-align: center;
+    color: rgba(0,0,0,.5);
+}

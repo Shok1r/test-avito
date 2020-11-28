@@ -8,6 +8,8 @@ import NewsService from './services/news-service';
 import NewsServiceContext from './components/news-service-context';
 import store from './store';
 
+import './index.css';
+
 const newsService = new NewsService();
 
 ReactDOM.render(

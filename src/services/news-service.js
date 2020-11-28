@@ -1,9 +1,9 @@
 export default class NewsService {
-    url = 'https://hacker-news.firebaseio.com/v0/newstories.json';
+    urlStories = 'https://hacker-news.firebaseio.com/v0/newstories.json';
 
     getNewsItems = async () => {
         //Получения id последних новостей
-        const response = await fetch(this.url);
+        const response = await fetch(this.urlStories);
         if (!response.ok){
             throw new Error('Server Error');
         }
@@ -23,6 +23,21 @@ export default class NewsService {
     
         
         return await obj;
+    }
+
+    getComments = async (idList) => {
+
+        const obj = await Promise
+            .all( idList.map( id => fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`)))
+            .then( responses => responses.map(response => response.json()))
+            .then( results =>  
+                Promise.all(results)
+                    .then( response => {return response}))
+            .catch( error => {
+                throw new Error('Server Error');
+            });
+            
+        return obj;
     }
 
 }
