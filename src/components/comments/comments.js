@@ -4,6 +4,7 @@ import { commentsLoaded, commentsRequested } from '../../actions';
 import WithNewsService from '../hoc';
 import CommentsList from '../comment-list';
 
+import './comments.css';
 
 class Comments extends Component {
 
@@ -13,6 +14,11 @@ class Comments extends Component {
 
     componentDidMount() {
         this.refreshComments();
+        this.timerId = setInterval(this.refreshComments, 60000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timerId);
     }
 
     refreshComments = () => {
@@ -47,9 +53,23 @@ class Comments extends Component {
         const commentsId = commentsItems.filter(item => item.parent === pageId).map(item => item.id);
 
         return (
-            <CommentsList commentsId={commentsId}/>
+            <View commentsId={commentsId} refreshComments={this.refreshComments}/>
         )
     }
+}
+
+const View = ({commentsId, refreshComments}) => {
+
+    return (
+        <div>
+            <button 
+                onClick={refreshComments}
+                className="btn btn-outline-secondary refresh-btn">
+                refresh comments
+            </button>
+            <CommentsList commentsId={commentsId}/>
+        </div>
+    ) 
 }
 
 const mapDispatchToProps = {

@@ -72,8 +72,9 @@ const View = ({items, refreshNewsList}) => {
                 <h1>Last 100 news</h1>
                 <button 
                     onClick={refreshNewsList}
-                    className="btn btn-outline-primary"
-                    >refresh</button>
+                    className="btn btn-outline-primary">
+                    refresh
+                </button>
             </div>
             <ul className="news__list list-group">
                 {items}
