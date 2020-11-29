@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import convertTime from '../time-converter';
+import convertTime from '../../utils';
 
 import './news-list-item.css';
 

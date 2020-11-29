@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import CommentsList from '../comment-list';
-import convertTime from '../time-converter';
+import convertTime from '../../utils/time-converter';
 
 import './comment-list-item.css';
 

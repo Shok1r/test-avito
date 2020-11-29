@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { commentsLoaded, commentsRequested } from '../../actions';
-import WithNewsService from '../hoc';
+import { loadAllComments } from '../../actions';
 import CommentsList from '../comment-list';
 
 import './comments.css';
 
 class Comments extends Component {
-
-    state = {
-        error: false
-    }
 
     componentDidMount() {
         this.refreshComments();
@@ -22,21 +17,12 @@ class Comments extends Component {
     }
 
     refreshComments = () => {
-        const {NewsService, pageId, commentsRequested} = this.props;
-
-        commentsRequested();
-        NewsService.getAllComments(pageId)
-            .then(res => this.props.commentsLoaded(res))
-            .catch(error => this.onError())
-    }
-
-    onError = () => {
-        this.setState({error: true})
+        this.props.loadAllComments(this.props.pageId);
     }
 
     render() {
         
-        const {pageId, commentsItems, loading} = this.props;
+        const {pageId, commentsItems, loading, error} = this.props;
 
         if (loading || commentsItems.length < 1) {
             return (
@@ -44,7 +30,7 @@ class Comments extends Component {
             )
         }
 
-        if (this.state.error) {
+        if (error) {
             return (
                 <div className="item__comment-list">Something goes wrong</div>
             )
@@ -73,15 +59,15 @@ const View = ({commentsId, refreshComments}) => {
 }
 
 const mapDispatchToProps = {
-    commentsLoaded,
-    commentsRequested
+    loadAllComments
 };
 
 const mapStateToProps = (state) => {
     return {
         loading: state.commentsLoading,
+        error: state.commentsError,
         commentsItems: state.comments
     }
 };
 
-export default WithNewsService()(connect(mapStateToProps, mapDispatchToProps)(Comments));
+export default connect(mapStateToProps, mapDispatchToProps)(Comments);

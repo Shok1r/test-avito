@@ -1,40 +1,48 @@
 const initialState = {
     news: [],
+    newsLoading: true,
+    newsError: false,
+    
     comments: [],
-    loading: true,
-    error: false,
     commentsLoading: true,
+    commentsError: false
 }
 
 const reduser = (state = initialState, action) => {
     switch (action.type) {
-        case 'NEWS_LOADED':
+        case 'GET_NEWS_SUCCESS':
             return {
                 ...state,
                 news: action.payload,
-                loading: false
+                newsLoading: false
             };
-        case 'NEWS_REQUESTED':
+        case 'GET_NEWS_REQUEST':
             return {
                 ...state,
-                loading: true,
+                newsLoading: true,
             };
-        case 'NEWS_ERROR':
+        case 'GET_NEWS_FAILURE':
             return {
                 ...state,
-                loading: false,
-                error: true
+                newsLoading: false,
+                newsError: true
             };
-        case 'COMMENTS_LOADED':
+        case 'GET_COMMENTS_SUCCESS':
             return {
                 ...state,
                 comments: action.payload,
                 commentsLoading: false
             };
-        case 'COMMENTS_REQUESTED':
+        case 'GET_COMMENTS_REQUEST':
             return {
                 ...state,
                 commentsLoading: true,
+            };
+        case 'GET_COMMENTS_FAILURE':
+            return {
+                ...state,
+                commentsLoading: false,
+                commentsError: true
             };    
         case 'COMMENTS_DELETE':
             return {

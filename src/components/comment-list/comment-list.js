@@ -14,5 +14,4 @@ const CommentsList = ({commentsId}) => {
     )
 }
 
-
 export default CommentsList;

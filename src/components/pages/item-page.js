@@ -2,11 +2,10 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
-import { newsLoaded, newsRequested, newsError, commentsDelete } from '../../actions';
-import WithNewsService from '../hoc';
+import { loadAllNews, commentsDelete } from '../../actions';
 import Spinner from '../spinner/spinner'
 import Comments from '../comments';
-import convertTime from '../time-converter';
+import convertTime from '../../utils';
 
 import './pages.css';
 
@@ -14,19 +13,13 @@ class ItemPage extends Component {
 
     componentDidMount() {
         if( this.props.newsItems.length === 0){
-            this.props.newsRequested();
-
-            const {NewsService} = this.props;
-            NewsService.getNewsItems()
-                .then(res => this.props.newsLoaded(res))
-                .catch(error => this.props.newsError())
+            this.props.loadAllNews();
         }
     }
 
     componentWillUnmount()  {
         this.props.commentsDelete();
     }
-
 
     render() {
 
@@ -84,16 +77,14 @@ const View = ({item}) => {
 const mapStateToProps = (state) => {
     return {
         newsItems: state.news,
-        loading: state.loading,
-        error: state.error
+        loading: state.newsLoading,
+        error: state.newsError
     }
 };
 
 const mapDispatchToProps = {
-    newsLoaded,
-    newsRequested,
-    newsError,
+    loadAllNews,
     commentsDelete
 };
 
-export default WithNewsService()(connect(mapStateToProps, mapDispatchToProps)(ItemPage));
+export default connect(mapStateToProps, mapDispatchToProps)(ItemPage);

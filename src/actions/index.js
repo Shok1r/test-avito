@@ -1,34 +1,64 @@
+import NewsSrvices from '../services/news-service';
+
+const newsService = new NewsSrvices();
+
+const loadAllNews = () => {
+    return dispatch => {
+        dispatch(newsRequested());
+
+        newsService.getNewsItems()
+            .then(res => {dispatch(newsLoaded(res))})
+            .catch(error => {dispatch(newsError())});
+    }
+}
+
 const newsLoaded = (newMenu) => {
     return {
-        type: 'NEWS_LOADED',
+        type: 'GET_NEWS_SUCCESS',
         payload: newMenu
     };
 };
 
 const newsRequested = () => {
     return {
-        type: 'NEWS_REQUESTED'
+        type: 'GET_NEWS_REQUEST'
     };
 };
 
 const newsError = () => {
     return {
-        type: 'NEWS_ERROR',
+        type: 'GET_NEWS_FAILURE',
+    }
+}
+
+const loadAllComments = (pageId) => {
+    return dispatch => {
+        dispatch(commentsRequested());
+
+        newsService.getAllComments(pageId)
+            .then(res => {dispatch(commentsLoaded(res))})
+            .catch(error => {dispatch(commentsError())});
     }
 }
 
 const commentsLoaded = (comments) => {
     return {
-        type: 'COMMENTS_LOADED',
+        type: 'GET_COMMENTS_SUCCESS',
         payload: comments
     };
 }
 
 const commentsRequested = () => {
     return {
-        type: 'COMMENTS_REQUESTED'
+        type: 'GET_COMMENTS_REQUEST'
     };
 };
+
+const commentsError = () => {
+    return {
+        type: 'GET_COMMENTS_FAILURE'
+    };
+}
 
 const commentsDelete = () => {
     return {
@@ -37,10 +67,7 @@ const commentsDelete = () => {
 }
 
 export {
-    newsLoaded,
-    newsRequested,
-    newsError,
-    commentsLoaded,
+    loadAllNews,
+    loadAllComments,
     commentsDelete,
-    commentsRequested
 };

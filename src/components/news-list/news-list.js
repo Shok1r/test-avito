@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import NewsListItem from '../news-list-item';
-import WithNewsService from '../hoc';
-import {newsLoaded, newsRequested, newsError} from '../../actions';
+import { loadAllNews } from '../../actions';
 import Spinner from '../spinner/spinner'
 
 import './news-list.css';
@@ -19,13 +18,7 @@ class NewsList extends Component {
     }
 
     refreshNewsList = () => {
-        const {NewsService, newsRequested} = this.props;
-        
-        newsRequested();
-
-        NewsService.getNewsItems()
-            .then(res => this.props.newsLoaded(res))
-            .catch(error => this.props.newsError())
+        this.props.loadAllNews();
     }
 
 
@@ -51,19 +44,6 @@ class NewsList extends Component {
     }
 };
 
-const mapStateToProps = (state) => {
-    return {
-        newsItems: state.news,
-        loading: state.loading
-    }
-};
-
-const mapDispatchToProps = {
-    newsLoaded,
-    newsRequested,
-    newsError
-};
-
 const View = ({items, refreshNewsList}) => {
 
     return (
@@ -83,4 +63,15 @@ const View = ({items, refreshNewsList}) => {
     ) 
 }
 
-export default WithNewsService()(connect(mapStateToProps, mapDispatchToProps)(NewsList));
+const mapStateToProps = (state) => {
+    return {
+        newsItems: state.news,
+        loading: state.newsLoading
+    }
+};
+
+const mapDispatchToProps = {
+    loadAllNews
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewsList);
