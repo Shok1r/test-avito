@@ -1,9 +1,9 @@
 import React from 'react';
-import NewsList from '../news-list';
+import NewsListContainer from '../news-list-container';
 
 const MainPage = () => {
     return (
-        <NewsList className="main-page"/>
+        <NewsListContainer className="main-page"/>
     )
 }
 

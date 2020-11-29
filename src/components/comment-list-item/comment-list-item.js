@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
 import CommentsList from '../comment-list';
 import convertTime from '../../utils/time-converter';
 
@@ -24,7 +23,7 @@ class Comment extends Component {
         if (item.hasOwnProperty('kids')) {
             if (this.state.showChilds) {
 
-                const child = <CommentsList commentsId={item.kids}/>
+                const child = <CommentsList commentsId={item.kids} commentsItems={commentsItems}/>
                 return (
                     <CommentWithKids item={item} child={child} onShowChildren={() => this.onToggleShowChilds()}/> 
                 )
@@ -95,10 +94,4 @@ const CommentWithKids = ({item, child, onShowChildren}) => {
     )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        commentsItems: state.comments
-    }
-};
-
-export default connect(mapStateToProps)(Comment);
+export default Comment;

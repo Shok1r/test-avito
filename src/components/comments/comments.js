@@ -39,12 +39,12 @@ class Comments extends Component {
         const commentsId = commentsItems.filter(item => item.parent === pageId).map(item => item.id);
 
         return (
-            <View commentsId={commentsId} refreshComments={this.refreshComments}/>
+            <View commentsId={commentsId} refreshComments={this.refreshComments} commentsItems={commentsItems}/>
         )
     }
 }
 
-const View = ({commentsId, refreshComments}) => {
+const View = ({commentsId, refreshComments, commentsItems}) => {
 
     return (
         <div>
@@ -53,7 +53,7 @@ const View = ({commentsId, refreshComments}) => {
                 className="btn btn-outline-secondary refresh-btn">
                 refresh comments
             </button>
-            <CommentsList commentsId={commentsId}/>
+            <CommentsList commentsId={commentsId} commentsItems={commentsItems}/>
         </div>
     ) 
 }

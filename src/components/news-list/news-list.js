@@ -1,50 +1,23 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React from 'react';
 import NewsListItem from '../news-list-item';
-import { loadAllNews } from '../../actions';
 import Spinner from '../spinner/spinner'
 
 import './news-list.css';
 
-class NewsList extends Component {
+const NewsList = ({newsItems, loading, refreshNewsList}) => {
 
-    componentDidMount() {
-        this.refreshNewsList();
-        this.timerId = setInterval(this.refreshNewsList, 60000);
+    if (loading || newsItems.length < 1) {
+        return <Spinner/>
     }
 
-    componentWillUnmount() {
-        clearInterval(this.timerId);
-    }
-
-    refreshNewsList = () => {
-        this.props.loadAllNews();
-    }
-
-
-    render() {
-        const {newsItems, loading} = this.props;
-
-        if (loading || newsItems.length < 1) {
-            return <Spinner/>
-        }
-
-        const items = newsItems.map(newsItem => {
-            return (
-                <NewsListItem 
-                    key = {newsItem.id} 
-                    newsItem = {newsItem}
-                />
-            )
-        })
-
+    const items = newsItems.map(newsItem => {
         return (
-            <View items = {items} refreshNewsList={this.refreshNewsList}/> 
+            <NewsListItem 
+                key = {newsItem.id} 
+                newsItem = {newsItem}
+            />
         )
-    }
-};
-
-const View = ({items, refreshNewsList}) => {
+    })
 
     return (
         <div className="news__wrapper">
@@ -61,17 +34,7 @@ const View = ({items, refreshNewsList}) => {
             </ul>
         </div>
     ) 
-}
-
-const mapStateToProps = (state) => {
-    return {
-        newsItems: state.news,
-        loading: state.newsLoading
-    }
+    
 };
 
-const mapDispatchToProps = {
-    loadAllNews
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(NewsList);
+export default NewsList;
