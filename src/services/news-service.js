@@ -9,7 +9,6 @@ export default class NewsService {
         }
         const result = await response.json();
 
-
         //Получение массива объектов новостей из 100 последних новостей 
         const obj = Promise
             .all((result.slice(0, 100)).map( item => fetch(`https://hacker-news.firebaseio.com/v0/item/${item}.json?print=pretty`)))
@@ -21,7 +20,6 @@ export default class NewsService {
                 throw new Error('Server Error');
             });
     
-        
         return await obj;
     }
 

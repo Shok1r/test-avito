@@ -22,7 +22,10 @@ class NewsListContainer extends Component {
         const {newsItems, loading} = this.props;
 
         return (
-            <NewsList newsItems={newsItems} loading={loading} refreshNewsList={this.refreshNewsList}/>
+            <NewsList 
+                newsItems={newsItems} 
+                loading={loading} 
+                refreshNewsList={this.refreshNewsList}/>
         )
     }
 }
@@ -32,10 +35,10 @@ const mapStateToProps = (state) => {
         newsItems: state.news,
         loading: state.newsLoading
     }
-};
+}
 
 const mapDispatchToProps = {
     loadAllNews
-};
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewsListContainer);

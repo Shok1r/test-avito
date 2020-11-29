@@ -34,7 +34,6 @@ const NewsList = ({newsItems, loading, refreshNewsList}) => {
             </ul>
         </div>
     ) 
-    
-};
+}
 
 export default NewsList;

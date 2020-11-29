@@ -28,5 +28,4 @@ const NewsListItem = ({newsItem}) => {
     )
 }
 
-
 export default NewsListItem;

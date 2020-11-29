@@ -8,9 +8,8 @@ import store from './store';
 
 import './index.css';
 
-
 ReactDOM.render(
-  <Provider store = {store}>
+    <Provider store = {store}>
         <ErrorBoundry>
             <Router>
                 <App/>

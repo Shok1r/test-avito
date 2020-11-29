@@ -16,14 +16,14 @@ const newsLoaded = (newMenu) => {
     return {
         type: 'GET_NEWS_SUCCESS',
         payload: newMenu
-    };
-};
+    }
+}
 
 const newsRequested = () => {
     return {
         type: 'GET_NEWS_REQUEST'
-    };
-};
+    }
+}
 
 const newsError = () => {
     return {
@@ -45,29 +45,29 @@ const commentsLoaded = (comments) => {
     return {
         type: 'GET_COMMENTS_SUCCESS',
         payload: comments
-    };
+    }
 }
 
 const commentsRequested = () => {
     return {
         type: 'GET_COMMENTS_REQUEST'
-    };
-};
+    }
+}
 
 const commentsError = () => {
     return {
         type: 'GET_COMMENTS_FAILURE'
-    };
+    }
 }
 
 const commentsDelete = () => {
     return {
         type: 'COMMENTS_DELETE'
-    };
+    }
 }
 
 export {
     loadAllNews,
     loadAllComments,
     commentsDelete,
-};
+}

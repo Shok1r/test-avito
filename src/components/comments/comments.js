@@ -39,7 +39,10 @@ class Comments extends Component {
         const commentsId = commentsItems.filter(item => item.parent === pageId).map(item => item.id);
 
         return (
-            <View commentsId={commentsId} refreshComments={this.refreshComments} commentsItems={commentsItems}/>
+            <View 
+                commentsId={commentsId} 
+                refreshComments={this.refreshComments} 
+                commentsItems={commentsItems}/>
         )
     }
 }
@@ -60,7 +63,7 @@ const View = ({commentsId, refreshComments, commentsItems}) => {
 
 const mapDispatchToProps = {
     loadAllComments
-};
+}
 
 const mapStateToProps = (state) => {
     return {
@@ -68,6 +71,6 @@ const mapStateToProps = (state) => {
         error: state.commentsError,
         commentsItems: state.comments
     }
-};
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comments);

@@ -25,11 +25,16 @@ class Comment extends Component {
 
                 const child = <CommentsList commentsId={item.kids} commentsItems={commentsItems}/>
                 return (
-                    <CommentWithKids item={item} child={child} onShowChildren={() => this.onToggleShowChilds()}/> 
+                    <CommentWithKids 
+                        item={item} 
+                        child={child} 
+                        onShowChildren={() => this.onToggleShowChilds()}/> 
                 )
             } else {
                 return (
-                    <CommentWithKidsHide item={item} onShowChildren={() => this.onToggleShowChilds()}/>
+                    <CommentWithKidsHide 
+                        item={item} 
+                        onShowChildren={() => this.onToggleShowChilds()}/>
                 )
             }
         } else {
@@ -41,7 +46,6 @@ class Comment extends Component {
 }
 
 const CommentWithoutKids = ({item}) => {
-
     const {author, text, time} = item;
 
     return (

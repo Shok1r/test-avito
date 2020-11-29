@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-no-target-blank */
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import { Link } from 'react-router-dom';
-import { loadAllNews, commentsDelete } from '../../actions';
+import {Link} from 'react-router-dom';
+import {loadAllNews, commentsDelete} from '../../actions';
 import Spinner from '../spinner/spinner'
 import Comments from '../comments';
 import convertTime from '../../utils';
@@ -35,7 +35,7 @@ class ItemPage extends Component {
 
         return (
             <View item={item}/> 
-        );
+        )
     }
 }
 
@@ -73,18 +73,17 @@ const View = ({item}) => {
     ) 
 }
 
-
 const mapStateToProps = (state) => {
     return {
         newsItems: state.news,
         loading: state.newsLoading,
         error: state.newsError
     }
-};
+}
 
 const mapDispatchToProps = {
     loadAllNews,
     commentsDelete
-};
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemPage);
